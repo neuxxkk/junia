@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://lh3.googleusercontent.com/pw/AP1GczNXAdBBvkmh-U9OXt7VKIqHt4pg7CDYniTiWH8QPeX-l4CmwQ_pTO3xFUFev_LbzWksRSXVeiPOVPGmsW7fVmzYc3eH9kiSSGYROcQvCzaWzZEnsnOtVHzSV4mzww8hJL74hl3kWINfqmKyLuUu9cNVQw=w869-h869-s-no-gm?authuser=0" type="image/png">       
+    <link rel="icon" href="https://lh3.googleusercontent.com/pw/AP1GczNXAdBBvkmh-U9OXt7VKIqHt4pg7CDYniTiWH8QPeX-l4CmwQ_pTO3xFUFev_LbzWksRSXVeiPOVPGmsW7fVmzYc3eH9kiSSGYROcQvCzaWzZEnsnOtVHzSV4mzww8hJL74hl3kWINfqmKyLuUu9cNVQw=w869-h869-s-no-gm?authuser=0" type="image/png">     
     <title>Feliz Aniversário, Junia!</title>
     <style>
         body {
@@ -28,6 +28,21 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounceIn {
+            from, 20%, 40%, 60%, 80%, to {
+                animation-timing-function: ease-in-out;
+            }
+            0% { transform: translateY(-100%); opacity: 0; }
+            20% { transform: translateY(0); opacity: 1; }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(10px); }
+            80% { transform: translateY(-10px); }
+            to { transform: translateY(0); }
         }
         h1 {
             color: #d81b60;
@@ -56,11 +71,22 @@
         .hidden {
             display: none;
         }
+        .slide-in {
+            animation: slideIn 1.5s ease-in-out;
+        }
+        .bounce-in {
+            animation: bounceIn 1.5s ease-in-out;
+        }
         img {
             max-width: 100%;
             border-radius: 15px;
             margin-top: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        #gift{
+            border: none;
+            box-shadow: none;
+            margin: 10px;
         }
     </style>
 </head>
@@ -76,27 +102,39 @@
             <img src="https://lh3.googleusercontent.com/pw/AP1GczOdqcqFVR9dhU9ThGC1v9f5Y2I58VuTCDQ5ZLoPhdh7-xcM89hmR0hEdQHcvCvD5a0m4ZLy55uHFoxICU9l5x8nkz3l0enpgYTlq7Kbk66c2rFWiC33Lk-Pg1VN-N7GLvrZPJGOO7TKA0PMdS8LIZe2EQ=w673-h869-s-no-gm?authuser=0" alt="Flores para você!" width="200pxx" >
         </div>
         <button onclick="mostrarValePresente()" id="vale">Vale Presente</button>
-        <div id="valePresente" class="hidden">
+        <div id="valePresente" class="hidden slide-in">
             <h3>Está precisando de um chinelo novo❓</h3>
             <button onclick="mostrarInstrucao('massagem')">Sim!</button>
             <button onclick="mostrarInstrucao('jantar')">Meu Deus! Como acertastes!?</button>
         </div>
-        <h1 id="instrucao" class="hidden"></h1>
+        <h1 id="instrucao" class="hidden bounce-in"></h1>
         <img id="flip" class="hidden" src="https://cdn.awsli.com.br/600x700/2640/2640978/produto/290957896/imagem7909989325032_1-vonuoqqi6j.jpg" alt="Flores para você!" width="200pxx" >
+        <img id="gift" class="hidden" src="https://i.pinimg.com/originals/fd/2c/1a/fd2c1a96b654e220d09525f006482477.gif" alt="Presente para você!" width="200px" >
+
     </div>
     <audio id="audioSurpresa" src="https://www.myinstants.com/media/sounds/parabens-da-xuxa.mp3"></audio>
-
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
         function mostrarMensagem() {
             document.getElementById("norm").classList.add("hidden");
-            document.getElementById("surpresa").classList.remove("hidden");
+            const surpresaDiv = document.getElementById("surpresa");
+            surpresaDiv.classList.remove("hidden");
+            surpresaDiv.classList.add("slide-in");
             document.getElementById("audioSurpresa").play();
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
         }
         function mostrarValePresente() {
-            document.getElementById("valePresente").classList.remove("hidden");
+            const valePresenteDiv = document.getElementById("valePresente");
+            valePresenteDiv.classList.remove("hidden");
+            valePresenteDiv.classList.add("slide-in");
             document.getElementById("vale").classList.add("hidden");
         }
         function mostrarInstrucao(presente) {
+            document.getElementById("gift").classList.remove("hidden");
             document.getElementById("norm").classList.add("hidden");
             document.getElementById("surpresa").classList.add("hidden");
             let instrucaoTexto = "";
@@ -105,9 +143,13 @@
             } else if (presente === "jantar") {
                 instrucaoTexto = "🤩 Ora pois! Olhe na segunda gaveta na parte esquerda de seu armário! 🤩";
             }
-            document.getElementById("flip").classList.remove("hidden");
-            document.getElementById("instrucao").textContent = instrucaoTexto;
-            document.getElementById("instrucao").classList.remove("hidden");
+            const flipImg = document.getElementById("flip");
+            flipImg.classList.remove("hidden");
+            flipImg.classList.add("bounce-in");
+            const instrucaoElem = document.getElementById("instrucao");
+            instrucaoElem.textContent = instrucaoTexto;
+            instrucaoElem.classList.remove("hidden");
+            instrucaoElem.classList.add("bounce-in");
         }
     </script>
 </body>

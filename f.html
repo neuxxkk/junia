@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://lh3.googleusercontent.com/pw/AP1GczNXAdBBvkmh-U9OXt7VKIqHt4pg7CDYniTiWH8QPeX-l4CmwQ_pTO3xFUFev_LbzWksRSXVeiPOVPGmsW7fVmzYc3eH9kiSSGYROcQvCzaWzZEnsnOtVHzSV4mzww8hJL74hl3kWINfqmKyLuUu9cNVQw=w869-h869-s-no-gm?authuser=0" type="image/png">       
+    <title>Feliz Aniversário, Mãe!</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        h1 {
+            color: #d81b60;
+            font-size: 28px;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        button {
+            background: linear-gradient(135deg, #d81b60, #ff4081);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 25px;
+            margin-top: 15px;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background: linear-gradient(135deg, #b6184e, #d81b60);
+            transform: scale(1.05);
+        }
+        .hidden {
+            display: none;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 15px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="norm">
+            <h1>Feliz Aniversário, Junia Neuenschwander! 🎉</h1>
+            <p>Que seu dia seja repleto de alegria, amor e muitas bênçãos! Você é a melhor mãe do mundo! 💖</p>
+            <button onclick="mostrarMensagem()">Clique para uma surpresa!</button>
+        </div>
+        <div id="surpresa" class="hidden">
+            <h1>Te amo muito! Obrigado por tudo que faz por mim! 💕</h1>
+            <img src="https://lh3.googleusercontent.com/pw/AP1GczOdqcqFVR9dhU9ThGC1v9f5Y2I58VuTCDQ5ZLoPhdh7-xcM89hmR0hEdQHcvCvD5a0m4ZLy55uHFoxICU9l5x8nkz3l0enpgYTlq7Kbk66c2rFWiC33Lk-Pg1VN-N7GLvrZPJGOO7TKA0PMdS8LIZe2EQ=w673-h869-s-no-gm?authuser=0" alt="Flores para você!" width="200pxx" >
+        </div>
+        <button onclick="mostrarValePresente()" id="vale">Vale Presente</button>
+        <div id="valePresente" class="hidden">
+            <h3>Está precisando de um chinelo novo❓</h3>
+            <button onclick="mostrarInstrucao('massagem')">Sim!</button>
+            <button onclick="mostrarInstrucao('jantar')">Meu Deus! Como acertastes!?</button>
+        </div>
+        <h1 id="instrucao" class="hidden"></h1>
+        <img id="flip" class="hidden" src="https://cdn.awsli.com.br/600x700/2640/2640978/produto/290957896/imagem7909989325032_1-vonuoqqi6j.jpg" alt="Flores para você!" width="200pxx" >
+    </div>
+    <audio id="audioSurpresa" src="https://www.myinstants.com/media/sounds/parabens-da-xuxa.mp3"></audio>
+
+    <script>
+        function mostrarMensagem() {
+            document.getElementById("norm").classList.add("hidden");
+            document.getElementById("surpresa").classList.remove("hidden");
+            document.getElementById("audioSurpresa").play();
+        }
+        function mostrarValePresente() {
+            document.getElementById("valePresente").classList.remove("hidden");
+            document.getElementById("vale").classList.add("hidden");
+        }
+        function mostrarInstrucao(presente) {
+            document.getElementById("norm").classList.add("hidden");
+            document.getElementById("surpresa").classList.add("hidden");
+            let instrucaoTexto = "";
+            if (presente === "massagem") {
+                instrucaoTexto = "🌟 Verifique a segunda gaveta na parte esquerda de seu armário! 🌟";
+            } else if (presente === "jantar") {
+                instrucaoTexto = "🤩 Ora pois! Olhe na segunda gaveta na parte esquerda de seu armário! 🤩";
+            }
+            document.getElementById("flip").classList.remove("hidden");
+            document.getElementById("instrucao").textContent = instrucaoTexto;
+            document.getElementById("instrucao").classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
